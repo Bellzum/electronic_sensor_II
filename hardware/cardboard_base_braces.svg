@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="440mm" height="360mm" viewBox="-20 -40 440 360" font-family="Helvetica, Arial, sans-serif">
+  <rect x="-20" y="-40" width="440" height="360" fill="#fff"/>
+  <text x="200" y="-20" text-anchor="middle" font-size="12" font-weight="bold" fill="#222">Base plate + 2 braces (1:1, mm)</text>
+  <text x="200" y="-8" text-anchor="middle" font-size="6" fill="#555">Red = CUT, blue dashed = FOLD. Glue the wall's bottom edge to the folded lip.</text>
+
+  <!-- Base plate -->
+  <rect x="0" y="0" width="400" height="140" fill="#f5e6c8" stroke="#c0392b" stroke-width="0.8"/>
+  <line x1="0" y1="30" x2="400" y2="30" stroke="#2471a3" stroke-width="0.8" stroke-dasharray="4 2"/>
+  <text x="200" y="22" text-anchor="middle" font-size="6" fill="#2471a3">wall glue line (fold up 30 mm lip, glue wall bottom to lip)</text>
+  <text x="200" y="40" text-anchor="middle" font-size="7" fill="#7b5b2a">BASE PLATE 400 x 140</text>
+  <rect x="20" y="45" width="150" height="85" fill="none" stroke="#999" stroke-width="0.5" stroke-dasharray="2 1"/>
+  <text x="95" y="90" text-anchor="middle" font-size="6" fill="#555">Arduino zone (69 x 54 board)</text>
+  <rect x="190" y="45" width="190" height="85" fill="none" stroke="#999" stroke-width="0.5" stroke-dasharray="2 1"/>
+  <text x="285" y="90" text-anchor="middle" font-size="6" fill="#555">Breadboard + wires zone</text>
+
+  <!-- Braces (right triangles with glue tab) -->
+  <g fill="#f5e6c8" stroke="#c0392b" stroke-width="0.8">
+    <polygon points="0,160 0,280 120,280"/>
+    <polygon points="150,160 150,280 270,280"/>
+  </g>
+  <g stroke="#2471a3" stroke-width="0.8" stroke-dasharray="4 2" fill="none">
+    <line x1="10" y1="160" x2="10" y2="280"/><line x1="160" y1="160" x2="160" y2="280"/>
+  </g>
+  <text x="40" y="268" font-size="6" fill="#7b5b2a">BRACE ×2</text>
+  <text x="40" y="275" font-size="5" fill="#7b5b2a">120 tall x 120 deep</text>
+  <text x="290" y="215" font-size="6" fill="#555">Glue each brace behind the wall,</text>
+  <text x="290" y="223" font-size="6" fill="#555">~60 mm in from each side edge,</text>
+  <text x="290" y="231" font-size="6" fill="#555">10 mm tab against wall, bottom to base.</text>
+  <text x="290" y="241" font-size="6" fill="#c0392b">Leave the middle free for electronics.</text>
+</svg>
