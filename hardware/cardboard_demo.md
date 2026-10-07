@@ -52,3 +52,24 @@ Use single-wall cardboard about 3 mm thick (shipping box). Tools: ruler, pencil,
 ## Notes
 - The LCD hole spacing and servo tab size are approximate. Measure your own modules and adjust.
 - Keep metal (screws, foil) away from the RC522 area, since it weakens the card signal.
+
+## Websites for cardboard design
+Check pricing and features on each site, as they can change.
+
+| Website | Cost | Good for |
+|---|---|---|
+| [MakerCase](https://www.makercase.com) | Free to design, paid for some exports | Boxes with a flat cut pattern. Works for cardboard too |
+| [Boxes.py](https://festi.info/boxes.py/) | Free | Parametric boxes, trays and stands, exported as SVG |
+| [Templatemaker](https://templatemaker.nl) | Free | Standard packaging boxes with printable dieline templates |
+| [Pacdora](https://www.pacdora.com) | Free tier | Seeing how a box folds in 3D |
+| [Tinkercad](https://www.tinkercad.com) | Free | The 3D shape and size of the wall |
+| [Inkscape](https://inkscape.org) | Free (desktop) | Editing the SVG drawings in this folder, or drawing your own cut and fold lines |
+
+**Suggested use:** keep the wall panel from `cardboard_wall_front.svg`, and use MakerCase or Boxes.py for a rear electronics box (for the Arduino and breadboard) if you want one.
+
+## Files in this folder
+| File | What it is |
+|---|---|
+| `cardboard_wall_front.svg` / `.png` | Wall panel with door, LCD window, servo slot and RFID tap zone |
+| `cardboard_base_braces.svg` / `.png` | Base plate and two braces |
+| `cardboard_demo.md` | This guide |
