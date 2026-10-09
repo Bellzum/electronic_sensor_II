@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mini Smart World Control</title>
+<style>
+  /* Same look as the world map: a maker's green cutting mat. */
+  :root {
+    --mat: #1f5b4a; --mat-deep: #174638; --grid: #2c6e5b; --ink: #f3f1e4; --muted: #b9d3c6;
+    --card: #e9e4d2; --card-ink: #174638; --wire: #ffd36b; --alert: #ff6b5a; --ok: #7ee08a;
+    --font: "IBM Plex Sans", system-ui, sans-serif; --mono: "IBM Plex Mono", ui-monospace, monospace;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--mat); color: var(--ink); font-family: var(--font); font-size: 15px;
+         background-image: linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+         background-size: 28px 28px; padding: 16px; }
+  header { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: space-between; max-width: 1200px; margin: 0 auto 16px; }
+  h1 { margin: 0; font-size: 26px; letter-spacing: .02em; }
+  .hub { font-family: var(--mono); font-size: 13px; color: var(--muted); }
+  .hub b { color: var(--ok); }
+  .hub b.bad { color: var(--alert); }
+  #estop { background: var(--alert); color: #fff; border: 4px solid #fff; border-radius: 999px; font-size: 20px; font-weight: 700;
+           padding: 14px 26px; cursor: pointer; letter-spacing: .05em; }
+  #estop.active { background: #fff; color: var(--alert); border-color: var(--alert); animation: pulse 1s infinite; }
+  @keyframes pulse { 50% { box-shadow: 0 0 0 10px rgba(255,107,90,.35); } }
+  @media (prefers-reduced-motion: reduce) { #estop.active { animation: none; } }
+  .banner { display: none; max-width: 1200px; margin: 0 auto 16px; background: var(--alert); color: #fff; padding: 12px 16px;
+            font-weight: 700; border-radius: 4px; }
+  .banner.show { display: block; }
+  main { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 14px; }
+  .zone { background: var(--card); color: var(--card-ink); border-radius: 4px; padding: 14px; display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+  .zone h2 { margin: 0; font-size: 17px; display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+  .n { font-family: var(--mono); font-size: 12px; background: var(--card-ink); color: var(--card); border-radius: 999px; padding: 2px 8px; }
+  .pill { font-family: var(--mono); font-size: 12px; padding: 2px 8px; border-radius: 999px; background: #d6d0ba; color: var(--card-ink); }
+  .pill.good { background: var(--ok); } .pill.warn { background: var(--wire); } .pill.bad { background: var(--alert); color: #fff; }
+  .row { display: flex; justify-content: space-between; gap: 8px; font-size: 14px; }
+  .row span:last-child { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+  .btns { display: flex; flex-wrap: wrap; gap: 6px; }
+  button.c { background: var(--card-ink); color: var(--card); border: 0; border-radius: 4px; padding: 8px 12px; font-size: 14px; cursor: pointer; touch-action: none; }
+  button.c:active, button.c.held { background: var(--wire); color: var(--card-ink); }
+  button:focus-visible { outline: 3px solid var(--wire); outline-offset: 2px; }
+  .pad { display: grid; grid-template-columns: repeat(3, 56px); gap: 6px; justify-content: center; }
+  .pad button { height: 48px; padding: 0; font-size: 18px; }
+  .hint { font-size: 12px; color: #4b5a52; margin: 0; }
+  .stale { opacity: .55; }
+  svg.spark { width: 100%; height: 40px; }
+  img.photo { width: 100%; border-radius: 3px; background: #ccc; min-height: 40px; }
+  section.log { max-width: 1200px; margin: 16px auto 0; background: var(--mat-deep); border: 1px solid var(--grid); padding: 12px; }
+  section.log h2 { margin: 0 0 8px; font-size: 16px; }
+  .logwrap { overflow-x: auto; max-height: 300px; }
+  table { border-collapse: collapse; width: 100%; font-family: var(--mono); font-size: 12px; }
+  td { padding: 3px 8px; border-bottom: 1px solid var(--grid); vertical-align: top; white-space: nowrap; }
+  td:last-child { white-space: normal; word-break: break-all; }
+  .map { max-width: 1200px; margin: 0 auto 16px; }
+  .map img { width: 100%; max-height: 260px; object-fit: contain; background: var(--mat-deep); border: 1px solid var(--grid); }
+</style>
+</head>
+<body>
+<header>
+  <div>
+    <h1>Mini Smart World · Control Center</h1>
+    <div class="hub">hub heartbeat: <b id="hb">waiting…</b> · <span id="clock"></span></div>
+  </div>
+  <button id="estop" aria-pressed="false">WORLD E-STOP</button>
+</header>
+<div class="banner" id="banner">World E-stop is ON. Every zone is in its safe state. Press the button again to release it.</div>
+<div class="map"><img src="/assets/world-map.svg" alt="Map of the Mini Smart World zones"></div>
+
+<main>
+  <article class="zone" id="z-gate">
+    <h2><span><span class="n">1</span> Smart Gate</span><span class="pill" data-k="gate">—</span></h2>
+    <div class="row"><span>Last card</span><span data-k="card">—</span></div>
+    <div class="row"><span>Result</span><span data-k="cardres">—</span></div>
+  </article>
+
+  <article class="zone" id="z-lights">
+    <h2><span><span class="n">2</span> Lights &amp; Security</span><span class="pill" data-k="security">—</span></h2>
+    <div class="row"><span>Street lights</span><span data-k="lights">—</span></div>
+    <div class="row"><span>Alarm</span><span data-k="alarm">—</span></div>
+    <div class="btns"><button class="c" data-cmd="security:ARMED">Arm</button><button class="c" data-cmd="security:DISARMED">Disarm</button></div>
+    <p class="hint">Arm/disarm buttons work in mock mode. The Uno version uses its own button.</p>
+  </article>
+
+  <article class="zone" id="z-farm">
+    <h2><span><span class="n">3</span> Smart Farm</span><span class="pill" data-k="farmmode">—</span></h2>
+    <div class="row"><span>Temperature</span><span data-k="temp">—</span></div>
+    <div class="row"><span>Humidity</span><span data-k="hum">—</span></div>
+    <div class="row"><span>Soil moisture</span><span data-k="soil">—</span></div>
+    <svg class="spark" id="soilspark" viewBox="0 0 100 40" preserveAspectRatio="none" aria-label="Soil moisture history"></svg>
+    <div class="row"><span>Fan / pump</span><span data-k="fanpump">—</span></div>
+    <div class="btns">
+      <button class="c" data-cmd="farm:pump">Water 3 s</button>
+      <button class="c" data-cmd="farm:fan_on">Fan on</button>
+      <button class="c" data-cmd="farm:fan_off">Fan off</button>
+      <button class="c" data-cmd="farm:fan_auto">Fan auto</button>
+    </div>
+  </article>
+
+  <article class="zone" id="z-tower">
+    <h2><span><span class="n">4</span> Watchtower</span><span class="pill" data-k="preset">—</span></h2>
+    <div class="row"><span>Pan / tilt</span><span data-k="pantilt">—</span></div>
+    <div class="btns">
+      <button class="c" data-cmd="tower:GATE">Gate</button><button class="c" data-cmd="tower:FARM">Farm</button>
+      <button class="c" data-cmd="tower:ROAD">Road</button><button class="c" data-cmd="tower:HOME">Home</button>
+    </div>
+    <img class="photo" id="photo" alt="Latest watchtower photo" hidden>
+    <p class="hint" data-k="photoinfo">No photo yet.</p>
+  </article>
+
+  <article class="zone" id="z-rover">
+    <h2><span><span class="n">5</span> Delivery Rover</span><span class="pill" data-k="rover">—</span></h2>
+    <div class="row"><span>Distance ahead</span><span data-k="rdist">—</span></div>
+    <div class="row"><span>Tilt</span><span data-k="rtilt">—</span></div>
+    <div class="pad">
+      <span></span><button class="c" data-hold="rover:forward" aria-label="Forward">▲</button><span></span>
+      <button class="c" data-hold="rover:left" aria-label="Left">◀</button>
+      <button class="c" data-cmd="rover:stop" aria-label="Stop">■</button>
+      <button class="c" data-hold="rover:right" aria-label="Right">▶</button>
+      <span></span><button class="c" data-hold="rover:backward" aria-label="Backward">▼</button><span></span>
+    </div>
+    <p class="hint">Hold to drive. Let go = stop within 1 s.</p>
+    <div class="btns"><button class="c" data-cmd="rover:reset">Reset rover E-stop</button></div>
+  </article>
+
+  <article class="zone" id="z-dog">
+    <h2><span><span class="n">★</span> Robot Dog</span><span class="pill" data-k="dog">—</span></h2>
+    <div class="row"><span>Mode</span><span data-k="dogmode">—</span></div>
+    <div class="row"><span>Battery</span><span data-k="dbat">—</span></div>
+    <div class="row"><span>Distance ahead</span><span data-k="ddist">—</span></div>
+    <div class="pad">
+      <span></span><button class="c" data-hold="dog:forward" aria-label="Forward">▲</button><span></span>
+      <button class="c" data-hold="dog:left" aria-label="Left">◀</button>
+      <button class="c" data-cmd="dog:stop" aria-label="Stop">■</button>
+      <button class="c" data-hold="dog:right" aria-label="Right">▶</button>
+      <span></span><button class="c" data-hold="dog:backward" aria-label="Backward">▼</button><span></span>
+    </div>
+    <div class="btns"><button class="c" data-cmd="dog:stand">Stand</button><button class="c" data-cmd="dog:sit">Sit</button><button class="c" data-cmd="dog:relax">Relax</button></div>
+  </article>
+</main>
+
+<section class="log">
+  <h2>World log (newest first)</h2>
+  <div class="logwrap"><table><tbody id="log"></tbody></table></div>
+</section>
+
+<script>
+const $ = (k) => document.querySelector(`[data-k="${k}"]`);
+const soilHistory = [];
+let estopOn = false;
+
+function setText(k, v) { const el = $(k); if (el) el.textContent = v; }
+function setPill(k, v, good = [], warn = [], bad = []) {
+  const el = $(k); if (!el) return;
+  el.textContent = v;
+  el.className = "pill" + (good.includes(v) ? " good" : warn.includes(v) ? " warn" : bad.includes(v) ? " bad" : "");
+}
+function json(s) { try { return JSON.parse(s); } catch { return null; } }
+
+async function send(zone, msg) {
+  try {
+    const r = await fetch("/api/cmd", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ zone, msg }) });
+    if (!r.ok) console.warn((await r.json()).detail);
+  } catch (e) { console.warn("command failed", e); }
+}
+
+document.querySelectorAll("[data-cmd]").forEach((b) => b.addEventListener("click", () => {
+  const [zone, msg] = b.dataset.cmd.split(":"); send(zone, msg);
+}));
+
+// Hold-to-drive: re-send every 300 ms while held. The robot stops 1 s after the last one.
+document.querySelectorAll("[data-hold]").forEach((b) => {
+  let timer = null;
+  const [zone, msg] = b.dataset.hold.split(":");
+  const start = (e) => { e.preventDefault(); if (timer) return; b.classList.add("held"); send(zone, msg); timer = setInterval(() => send(zone, msg), 300); };
+  const stop = () => { if (!timer) return; clearInterval(timer); timer = null; b.classList.remove("held"); send(zone, "stop"); };
+  b.addEventListener("pointerdown", start);
+  ["pointerup", "pointerleave", "pointercancel", "blur"].forEach((ev) => b.addEventListener(ev, stop));
+});
+
+document.getElementById("estop").addEventListener("click", async () => {
+  await fetch("/api/estop", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ on: !estopOn }) });
+});
+
+function drawSpark() {
+  const svg = document.getElementById("soilspark");
+  if (soilHistory.length < 2) return;
+  const pts = soilHistory.map((v, i) => `${(i / (soilHistory.length - 1)) * 100},${40 - (v / 100) * 38}`).join(" ");
+  svg.innerHTML = `<line x1="0" y1="${40 - 0.3 * 38}" x2="100" y2="${40 - 0.3 * 38}" stroke="#c9a227" stroke-dasharray="2 2" stroke-width="0.6"/>` +
+    `<polyline points="${pts}" fill="none" stroke="#174638" stroke-width="1.5" vector-effect="non-scaling-stroke"/>`;
+}
+
+function render(data) {
+  const T = data.topics, now = data.now;
+  const v = (t) => (T[t] ? T[t].value : null);
+  const age = (t) => (T[t] ? now - T[t].t : Infinity);
+
+  // hub heartbeat
+  const hb = document.getElementById("hb");
+  const hbAge = age("world/hub/heartbeat");
+  hb.textContent = hbAge < 3 ? "alive" : hbAge === Infinity ? "not seen (start world_logger.py)" : `silent ${Math.round(hbAge)} s`;
+  hb.className = hbAge < 3 ? "" : "bad";
+  document.getElementById("clock").textContent = new Date(now * 1000).toLocaleTimeString();
+
+  // E-stop
+  estopOn = v("world/estop") === "true";
+  const eb = document.getElementById("estop");
+  eb.classList.toggle("active", estopOn);
+  eb.textContent = estopOn ? "E-STOP ON · release" : "WORLD E-STOP";
+  eb.setAttribute("aria-pressed", estopOn);
+  document.getElementById("banner").classList.toggle("show", estopOn);
+
+  // gate
+  setPill("gate", v("world/gate/state") || "—", ["LOCKED"], ["UNLOCKED", "OPEN"], ["ALARM", "EMERGENCY"]);
+  const card = json(v("world/gate/card"));
+  if (card) { setText("card", card.uid); setText("cardres", card.allowed ? "granted" : "denied"); }
+
+  // lights + security
+  setPill("security", v("world/security/state") || "—", ["DISARMED"], ["ARMED"], ["ALARM"]);
+  setText("lights", v("world/lights/state") || "—");
+  setText("alarm", v("world/security/alarm") === "true" ? "ALARM!" : "quiet");
+
+  // farm
+  const fs = json(v("world/farm/sensors"));
+  if (fs) {
+    setText("temp", `${fs.temp} °C`); setText("hum", `${fs.humidity} %`); setText("soil", `${fs.soil} %`);
+    if (soilHistory[soilHistory.length - 1] !== fs.soil || soilHistory.length === 0) { soilHistory.push(fs.soil); if (soilHistory.length > 60) soilHistory.shift(); drawSpark(); }
+  }
+  const fst = json(v("world/farm/state"));
+  if (fst) { setPill("farmmode", fst.estop ? "ESTOP" : fst.mode, ["AUTO"], ["FAN_ON", "FAN_OFF"], ["ESTOP"]); setText("fanpump", `${fst.fan ? "fan ON" : "fan off"} · ${fst.pump ? "PUMP ON" : "pump off"}`); }
+  document.getElementById("z-farm").classList.toggle("stale", age("world/farm/sensors") > 20);
+
+  // tower
+  const tp = json(v("world/tower/position"));
+  if (tp) { setPill("preset", tp.estop ? "FROZEN" : tp.preset, [], [], ["FROZEN"]); setText("pantilt", `${tp.pan}° / ${tp.tilt}°`); }
+  const te = json(v("world/tower/event"));
+  if (te && te.photo) {
+    const img = document.getElementById("photo");
+    if (!img.src.endsWith(te.photo)) img.src = `/photos/${te.photo}`;
+    img.hidden = false; setText("photoinfo", `${te.reason} · ${te.photo}`);
+  }
+
+  // rover
+  const rs = json(v("world/rover/state"));
+  if (rs) { setPill("rover", rs.state, ["IDLE"], ["DRIVING"], ["BLOCKED", "ESTOP"]); setText("rdist", rs.distance < 0 ? "clear" : `${rs.distance} cm`); setText("rtilt", `${rs.tilt}°`); }
+  document.getElementById("z-rover").classList.toggle("stale", age("world/rover/state") > 3);
+
+  // dog
+  const ds = json(v("world/dog/state")), dsens = json(v("world/dog/sensors"));
+  if (ds) { setPill("dog", ds.state, ["IDLE", "STANDING"], ["MOVING"], ["BLOCKED", "ESTOP"]); setText("dogmode", ds.mode || "REAL"); }
+  const bat = dsens ? dsens.battery : ds ? ds.battery : null;
+  const dist = dsens ? dsens.distance : ds ? ds.distance : null;
+  if (bat !== null) setText("dbat", `${Number(bat).toFixed(2)} V${bat < 6.4 ? " LOW!" : ""}`);
+  if (dist !== null) setText("ddist", `${dist} cm`);
+  document.getElementById("z-dog").classList.toggle("stale", age("world/dog/state") > 3 && age("world/dog/sensors") > 3);
+
+  // log
+  document.getElementById("log").innerHTML = data.log.map(([t, topic, payload]) =>
+    `<tr><td>${t}</td><td>${topic}</td><td>${payload.replace(/</g, "&lt;")}</td></tr>`).join("");
+}
+
+async function poll() {
+  try { render(await (await fetch("/api/state")).json()); }
+  catch (e) { document.getElementById("hb").textContent = "dashboard server not reachable"; document.getElementById("hb").className = "bad"; }
+  setTimeout(poll, 500);
+}
+poll();
+</script>
+</body>
+</html>

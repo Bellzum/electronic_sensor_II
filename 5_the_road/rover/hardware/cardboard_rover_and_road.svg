@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400mm" height="460mm" viewBox="-20 -45 400 460" font-family="Helvetica, Arial, sans-serif">
+<rect x="-20" y="-45" width="400" height="460" fill="#fff"/>
+<text x="180.0" y="-28" text-anchor="middle" font-size="10" font-weight="bold" fill="#222">Zone 5 · Rover shell + road tiles (1:1, mm)</text>
+<text x="180.0" y="-18" text-anchor="middle" font-size="5" fill="#555">1:1 scale in mm. Print at 100% or measure with a ruler. Red = CUT · blue dashed = SCORE/FOLD · grey = mark only.</text>
+<rect x="60" y="60" width="180" height="120" fill="#e8d3a8" stroke="#c0392b" stroke-width="0.8"/>
+<text x="150.0" y="120.0" text-anchor="middle" font-size="7" font-weight="bold" fill="#7b5b2a">ROVER SHELL (upside-down box)</text>
+<text x="150.0" y="128.0" text-anchor="middle" font-size="5" fill="#7b5b2a">base 180 x 120</text>
+<rect x="60" y="0" width="180" height="60" fill="#f5e6c8" stroke="#c0392b" stroke-width="0.8"/>
+<text x="150.0" y="30.0" text-anchor="middle" font-size="7" font-weight="bold" fill="#7b5b2a">front</text>
+<text x="150.0" y="38.0" text-anchor="middle" font-size="5" fill="#7b5b2a">180 x 60</text>
+<rect x="60" y="180" width="180" height="60" fill="#f5e6c8" stroke="#c0392b" stroke-width="0.8"/>
+<text x="150.0" y="210.0" text-anchor="middle" font-size="7" font-weight="bold" fill="#7b5b2a">back</text>
+<text x="150.0" y="218.0" text-anchor="middle" font-size="5" fill="#7b5b2a">180 x 60</text>
+<rect x="0" y="60" width="60" height="120" fill="#f5e6c8" stroke="#c0392b" stroke-width="0.8"/>
+<text x="30.0" y="120.0" text-anchor="middle" font-size="7" font-weight="bold" fill="#7b5b2a">left</text>
+<text x="30.0" y="128.0" text-anchor="middle" font-size="5" fill="#7b5b2a">60 x 120</text>
+<rect x="240" y="60" width="60" height="120" fill="#f5e6c8" stroke="#c0392b" stroke-width="0.8"/>
+<text x="270.0" y="120.0" text-anchor="middle" font-size="7" font-weight="bold" fill="#7b5b2a">right</text>
+<text x="270.0" y="128.0" text-anchor="middle" font-size="5" fill="#7b5b2a">60 x 120</text>
+<line x1="60" y1="60" x2="240" y2="60" stroke="#2471a3" stroke-width="0.8" stroke-dasharray="4 2"/>
+<line x1="60" y1="180" x2="240" y2="180" stroke="#2471a3" stroke-width="0.8" stroke-dasharray="4 2"/>
+<line x1="60" y1="60" x2="60" y2="180" stroke="#2471a3" stroke-width="0.8" stroke-dasharray="4 2"/>
+<line x1="240" y1="60" x2="240" y2="180" stroke="#2471a3" stroke-width="0.8" stroke-dasharray="4 2"/>
+<circle cx="137" cy="30" r="8.0" fill="#fff" stroke="#c0392b" stroke-width="0.8"/>
+<text x="137" y="44.0" text-anchor="middle" font-size="4.5" fill="#555">ultrasonic eye Ø16</text>
+<circle cx="163" cy="30" r="8.0" fill="#fff" stroke="#c0392b" stroke-width="0.8"/>
+<text x="150" y="52" text-anchor="middle" font-size="4.5" fill="#555">eye centres 26 mm apart (HC-SR04)</text>
+<rect x="120" y="100" width="60" height="40" fill="none" stroke="#888" stroke-width="0.5" stroke-dasharray="1.5 1.5"/>
+<text x="150.0" y="122.0" text-anchor="middle" font-size="4.5" fill="#888">RFID tag (stick inside)</text>
+<rect x="80" y="80" width="30" height="20" fill="#fff" stroke="#c0392b" stroke-width="0.8"/>
+<text x="95.0" y="106" text-anchor="middle" font-size="4.5" fill="#555">E-stop button</text>
+<text x="0" y="260" text-anchor="start" font-size="4.5" fill="#333">The shell sits over the chassis: the base becomes the TOP. Fold the 4 walls down, tape the corners.</text>
+<text x="0" y="268" text-anchor="start" font-size="4.5" fill="#333">Leave the wheel sides open if the chassis is wider than 120 mm (cut wheel arches).</text>
+<rect x="0" y="290" width="300" height="100" fill="#d9d9d9" stroke="#c0392b" stroke-width="0.8"/>
+<text x="150" y="302" text-anchor="middle" font-size="6" fill="#333" font-weight="bold">ROAD TILE 300 x 100 (make 4–6)</text>
+<rect x="10" y="338" width="22" height="4" fill="#fff" stroke="#888" stroke-width="0.3"/>
+<rect x="50" y="338" width="22" height="4" fill="#fff" stroke="#888" stroke-width="0.3"/>
+<rect x="90" y="338" width="22" height="4" fill="#fff" stroke="#888" stroke-width="0.3"/>
+<rect x="130" y="338" width="22" height="4" fill="#fff" stroke="#888" stroke-width="0.3"/>
+<rect x="170" y="338" width="22" height="4" fill="#fff" stroke="#888" stroke-width="0.3"/>
+<rect x="210" y="338" width="22" height="4" fill="#fff" stroke="#888" stroke-width="0.3"/>
+<rect x="250" y="338" width="22" height="4" fill="#fff" stroke="#888" stroke-width="0.3"/>
+<rect x="0" y="370" width="300" height="4" fill="none" stroke="#888" stroke-width="0.5" stroke-dasharray="1.5 1.5"/>
+<text x="150.0" y="374.0" text-anchor="middle" font-size="4.5" fill="#888"></text>
+<text x="150" y="385" text-anchor="middle" font-size="4.5" fill="#555">optional: black tape line at y = 50 for line following</text>
+<rect x="260" y="310" width="30" height="60" fill="#fff" stroke="#c0392b" stroke-width="0.8"/>
+<text x="275.0" y="376" text-anchor="middle" font-size="4.5" fill="#555">GATE STOP LINE tile only: white bar</text>
+</svg>

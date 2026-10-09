@@ -1,0 +1,8 @@
+date,version,test,expected,result,notes
+,v1,mock world: open dashboard,all zone cards update,,
+,v1,dashboard E-stop ON,every zone shows ESTOP; commands refused (409),,
+,v1,dashboard E-stop OFF,zones back to normal,,
+,v1,stop world_logger.py,heartbeat shows silent; farm stops watering,,
+,v1,hold rover forward then let go,rover stops within 1 s,,
+,v1,unplug a zone,its card fades (stale),,
+,v1,serial bridge: tap card at the gate,world/gate/card appears in log,,

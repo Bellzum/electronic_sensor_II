@@ -1,0 +1,10 @@
+date,version,test,expected,result,notes
+,v1,each wheel forward/back (in the air),correct direction,,
+,v2,type f once,drives 1 s then stops (timeout),,
+,v2,press E-stop while driving,stops; refuses commands until x,,
+,v3,hand 10 cm in front + f,refused,,
+,v3,tilt rover > 30 deg,E-STOP,,
+,v5,mosquitto_pub forward once,drives 1 s then stops,,
+,v6,unplug Pi Wi-Fi while driving,stops within 1 s,,
+,v6,dashboard E-stop,rover stops,,
+,v7,gate handoff x5,5/5 gate opens for the rover tag,,

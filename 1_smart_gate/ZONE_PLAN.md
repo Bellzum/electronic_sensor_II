@@ -2,7 +2,9 @@
 
 The entrance to the world: a cardboard gate with a servo lock that opens for the right RFID card. **Weeks 1–3.**
 
-**Parts:** ESP32, RC522 RFID reader + cards/tags, SG90 servo, reed switch + magnet, active buzzer, red + green LEDs, 220 Ω resistors, 2 push buttons (emergency + reset).
+**Built on:** Arduino Uno (your current build in `code/`). Zone 2 adds its parts to the free pins of the same Uno, and the Pi's `serial_bridge.py` brings it into the Wi‑Fi world.
+
+**Parts:** Arduino Uno, RC522 RFID reader + cards/tags, SG90 servo, 16x2 LCD (I²C). Later versions add a reed switch + magnet, active buzzer, red + green LEDs, 220 Ω resistors, 2 push buttons (emergency + reset).
 
 **New words:** GPIO (a pin you switch or read) · RFID (card with a unique ID read by radio) · SPI (fast 4-wire chip connection) · servo (motor that goes to an angle) · PWM (fast on/off switching) · state machine · latch.
 
@@ -16,7 +18,7 @@ The entrance to the world: a cardboard gate with a servo lock that opens for the
 | v4 | Servo unlocks 5 s, then relocks by itself | ☐ |
 | v5 | Reed switch: knows if the door is open; ALARM if opened while locked | ☐ |
 | v6 | Emergency button: latched EMERGENCY, hold reset 2 s | ☐ |
-| v7 | *(Zone 3)* Publish `world/gate/state` + `world/gate/card` over MQTT; obey `world/estop` | ☐ |
+| v7 | *(Zone 3)* Into the world: `6_control_center/hub/serial_bridge.py` turns the Uno's Serial CSV into `world/gate/state` + `world/gate/card` | ☐ |
 
 ## State machine
 
@@ -29,19 +31,8 @@ OPEN     --door closes-->    LOCKED
 ANY      --emergency btn-->  EMERGENCY (latched until reset)
 ```
 
-## Wiring (RC522 → ESP32, 3.3 V module)
-
-| RC522 | ESP32 |
-|---|---|
-| SDA (SS) | GPIO 5 |
-| SCK | GPIO 18 |
-| MOSI | GPIO 23 |
-| MISO | GPIO 19 |
-| RST | GPIO 22 |
-| 3.3V | 3.3V (**not 5 V**) |
-| GND | GND |
-
-Servo signal → GPIO 13, servo power from a separate 5 V supply with shared GND.
+## Wiring
+See [docs/wiring.md](docs/wiring.md) (Arduino Uno pin map) and [docs/figures/wiring_diagram.png](docs/figures/wiring_diagram.png).
 
 ## Checkpoint
 

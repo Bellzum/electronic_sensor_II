@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400mm" height="670mm" viewBox="-20 -45 400 670" font-family="Helvetica, Arial, sans-serif">
+<rect x="-20" y="-45" width="400" height="670" fill="#fff"/>
+<text x="180.0" y="-28" text-anchor="middle" font-size="10" font-weight="bold" fill="#222">Zone 3 · Smart Farm greenhouse (1:1, mm)</text>
+<text x="180.0" y="-18" text-anchor="middle" font-size="5" fill="#555">1:1 scale in mm. Print at 100% or measure with a ruler. Red = CUT · blue dashed = SCORE/FOLD · grey = mark only.</text>
+<rect x="0" y="0" width="220" height="160" fill="#e8d3a8" stroke="#c0392b" stroke-width="0.8"/>
+<text x="110.0" y="80.0" text-anchor="middle" font-size="7" font-weight="bold" fill="#7b5b2a">BASE 220 x 160</text>
+<text x="110.0" y="88.0" text-anchor="middle" font-size="5" fill="#7b5b2a">pot sits in the middle</text>
+<rect x="80" y="50" width="60" height="60" fill="none" stroke="#888" stroke-width="0.5" stroke-dasharray="1.5 1.5"/>
+<text x="110.0" y="82.0" text-anchor="middle" font-size="4.5" fill="#888">pot / soil tray</text>
+<rect x="190" y="120" width="20" height="20" fill="#fff" stroke="#c0392b" stroke-width="0.8"/>
+<text x="200.0" y="146" text-anchor="middle" font-size="4.5" fill="#555">cable exit</text>
+<polygon points="0,240 80,180 160,240 160,350 0,350" fill="#f5e6c8" stroke="#c0392b" stroke-width="0.8"/>
+<text x="80" y="330" text-anchor="middle" font-size="7" font-weight="bold" fill="#7b5b2a">END WALL A (fan)</text>
+<circle cx="80" cy="275" r="20.0" fill="#fff" stroke="#c0392b" stroke-width="0.8"/>
+<text x="80" y="301.0" text-anchor="middle" font-size="4.5" fill="#555">fan opening Ø40 (match your fan)</text>
+<rect x="15" y="310" width="22" height="15" fill="#fff" stroke="#c0392b" stroke-width="0.8"/>
+<text x="26.0" y="331" text-anchor="middle" font-size="4.5" fill="#555">DHT22 window</text>
+<polygon points="175,240 255,180 335,240 335,350 175,350" fill="#f5e6c8" stroke="#c0392b" stroke-width="0.8"/>
+<text x="255" y="330" text-anchor="middle" font-size="7" font-weight="bold" fill="#7b5b2a">END WALL B (door)</text>
+<rect x="230" y="270" width="50" height="80" fill="#fff" stroke="#c0392b" stroke-width="0.8"/>
+<text x="255.0" y="356" text-anchor="middle" font-size="4.5" fill="#555">door 50 x 80 (cut 3 sides)</text>
+<line x1="230" y1="270" x2="230" y2="350" stroke="#2471a3" stroke-width="0.8" stroke-dasharray="4 2"/>
+<rect x="0" y="370" width="220" height="110" fill="#f5e6c8" stroke="#c0392b" stroke-width="0.8"/>
+<text x="110.0" y="425.0" text-anchor="middle" font-size="7" font-weight="bold" fill="#7b5b2a">SIDE WALL 1</text>
+<text x="110.0" y="433.0" text-anchor="middle" font-size="5" fill="#7b5b2a">220 x 110</text>
+<rect x="20" y="385" width="70" height="50" fill="#fff" stroke="#c0392b" stroke-width="0.8"/>
+<text x="55.0" y="441" text-anchor="middle" font-size="4.5" fill="#555">window (tape clear plastic)</text>
+<rect x="130" y="385" width="70" height="50" fill="#fff" stroke="#c0392b" stroke-width="0.8"/>
+<text x="165.0" y="441" text-anchor="middle" font-size="4.5" fill="#555">window</text>
+<rect x="0" y="495" width="220" height="110" fill="#f5e6c8" stroke="#c0392b" stroke-width="0.8"/>
+<text x="110.0" y="550.0" text-anchor="middle" font-size="7" font-weight="bold" fill="#7b5b2a">SIDE WALL 2</text>
+<text x="110.0" y="558.0" text-anchor="middle" font-size="5" fill="#7b5b2a">220 x 110</text>
+<rect x="20" y="510" width="70" height="50" fill="#fff" stroke="#c0392b" stroke-width="0.8"/>
+<text x="55.0" y="566" text-anchor="middle" font-size="4.5" fill="#555">window (tape clear plastic)</text>
+<rect x="130" y="510" width="70" height="50" fill="#fff" stroke="#c0392b" stroke-width="0.8"/>
+<text x="165.0" y="566" text-anchor="middle" font-size="4.5" fill="#555">window</text>
+<circle cx="200" cy="590" r="4.0" fill="#fff" stroke="#c0392b" stroke-width="0.8"/>
+<text x="200" y="600.0" text-anchor="middle" font-size="4.5" fill="#555">pump tube Ø8</text>
+<text x="240" y="400" text-anchor="start" font-size="5" fill="#333" font-weight="bold">ROOF: two clear plastic sheets</text>
+<text x="240" y="408" text-anchor="start" font-size="5" fill="#333">(food box lid), each 230 x 90, taped at the peak.</text>
+<text x="240" y="424" text-anchor="start" font-size="5" fill="#333">Soil sensor stands in the pot;</text>
+<text x="240" y="432" text-anchor="start" font-size="5" fill="#333">keep the electronics OUTSIDE the wet area,</text>
+<text x="240" y="440" text-anchor="start" font-size="5" fill="#333">behind END WALL A.</text>
+</svg>

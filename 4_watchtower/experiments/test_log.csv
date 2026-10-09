@@ -1,0 +1,8 @@
+date,version,test,expected,result,notes
+,v1,type 200 10,servos stop at limits 160 / 40,,
+,v1,record safe limits,PAN_MIN PAN_MAX TILT_MIN TILT_MAX,,
+,v3,mosquitto_pub GATE / FARM / ROAD,tower aims at each zone,,
+,v4,tap a card at the gate,tower turns to GATE + photo saved,,
+,v4,world/estop true while moving,tower freezes at once,,
+,v5,ball tracker FPS on the Pi,write the number,,
+,v5,move the ball slowly,tower follows without wobbling,,

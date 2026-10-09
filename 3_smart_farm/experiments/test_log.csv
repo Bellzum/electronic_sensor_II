@@ -1,0 +1,9 @@
+date,version,test,expected,result,notes
+,v1,read sensors at room temperature,temp ~ room temp / humidity 30-70%,,
+,v2,soil calibration dry average,record DRY_RAW,,
+,v2,soil calibration wet average,record WET_RAW,,
+,v3,mosquitto_sub on the Pi,world/farm/sensors every 5 s,,
+,v4,warm the DHT22 with your hand,fan ON above 30 C and OFF below 28 C,,
+,v4,dry soil,pump runs 3 s then waits 20 min,,
+,v4,world/estop true while pump runs,pump stops at once,,
+,v4,stop the Pi (no heartbeat),no new watering,,

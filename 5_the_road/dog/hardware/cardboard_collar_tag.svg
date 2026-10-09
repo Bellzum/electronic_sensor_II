@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="210mm" height="190mm" viewBox="-20 -45 210 190" font-family="Helvetica, Arial, sans-serif">
+<rect x="-20" y="-45" width="210" height="190" fill="#fff"/>
+<text x="85.0" y="-28" text-anchor="middle" font-size="10" font-weight="bold" fill="#222">Zone 5 · Robot dog RFID collar (1:1, mm)</text>
+<text x="85.0" y="-18" text-anchor="middle" font-size="5" fill="#555">1:1 scale in mm. Print at 100% or measure with a ruler. Red = CUT · blue dashed = SCORE/FOLD · grey = mark only.</text>
+<rect x="0" y="0" width="160" height="30" fill="#f5e6c8" stroke="#c0392b" stroke-width="0.8"/>
+<text x="80.0" y="15.0" text-anchor="middle" font-size="7" font-weight="bold" fill="#7b5b2a">COLLAR STRAP 160 x 30</text>
+<text x="80.0" y="23.0" text-anchor="middle" font-size="5" fill="#7b5b2a">wrap around the dog's neck, velcro the ends</text>
+<rect x="60" y="5" width="40" height="20" fill="none" stroke="#888" stroke-width="0.5" stroke-dasharray="1.5 1.5"/>
+<text x="80.0" y="17.0" text-anchor="middle" font-size="4.5" fill="#888">RFID tag</text>
+<rect x="0" y="50" width="50" height="50" fill="#f5e6c8" stroke="#c0392b" stroke-width="0.8"/>
+<text x="25.0" y="75.0" text-anchor="middle" font-size="7" font-weight="bold" fill="#7b5b2a">TAG POCKET</text>
+<text x="25.0" y="83.0" text-anchor="middle" font-size="5" fill="#7b5b2a">50 x 50</text>
+<line x1="0" y1="75" x2="50" y2="75" stroke="#2471a3" stroke-width="0.8" stroke-dasharray="4 2"/>
+<text x="0" y="115" text-anchor="start" font-size="4.5" fill="#333">Fold the pocket over the tag, glue to the strap. Keep it away from servos and metal.</text>
+<text x="0" y="123" text-anchor="start" font-size="4.5" fill="#333">Never let the collar block a leg joint: test the full leg motion with the dog OFF first.</text>
+</svg>

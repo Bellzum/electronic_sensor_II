@@ -1,0 +1,9 @@
+date,version,test,expected,result,notes
+,v1,LDR in bright room,high number (e.g. 700+),,
+,v1,LDR covered by hand,low number (e.g. <200),,
+,v2,slowly cover LDR,lights on below DARK_ON and no flicker,,
+,v3,wave hand in the dark,lamps 40 -> 255 for 30 s,,
+,v4,arm then walk in front after 10 s,ALARM + siren,,
+,v4,wait 20 s in ALARM,siren stops / red LED keeps flashing,,
+,v5,good card,gate opens 3 s + welcome lights 30 s,,
+,v5,3 unknown cards,ALARM,,

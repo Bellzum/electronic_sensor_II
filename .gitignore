@@ -1,0 +1,11 @@
+# secrets (Wi-Fi passwords)
+secrets.h
+# Python
+__pycache__/
+*.pyc
+.venv/
+# data created while running
+6_control_center/experiments/world_log.csv
+4_watchtower/pi/photos/
+# macOS
+.DS_Store

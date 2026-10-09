@@ -1,0 +1,9 @@
+date,version,test,expected,result,notes
+,v1,Robot Shield version,write version (fix ADS7830 if v1.0-v1.9),,
+,v2,mock: world/estop true,state ESTOP and moves refused,,
+,v2,mock: forward once,MOVING then STANDING after 1 s,,
+,v3,battery: power(0) vs multimeter,difference < 0.2 V,,
+,v3,ultrasonic: hand at 20 cm,distance about 20,,
+,v4,stand (on stand),dog stands; E-stop relaxes it,,
+,v5,forward 1 s on floor,moves then stops by itself,,
+,v6,collar tag at the gate,gate opens,,

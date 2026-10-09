@@ -29,7 +29,7 @@ Shared code (message format, MQTT helpers) lives in [`common/`](common/).
 
 ## How the zones talk
 
-Each zone runs on an **ESP32** (a small Wi‑Fi microcontroller). The **Raspberry Pi** in the Control Center is the hub. Zones send messages with **MQTT**: a device *publishes* to a named *topic* and anyone *subscribed* to it receives the message (ROS 2 uses the same idea).
+Zones 3–5 run on an **ESP32** (a small Wi‑Fi microcontroller). The gate and lights share an **Arduino Uno** that talks to the hub over USB. The **Raspberry Pi** in the Control Center is the hub. Zones send messages with **MQTT**: a device *publishes* to a named *topic* and anyone *subscribed* to it receives the message (ROS 2 uses the same idea).
 
 ```text
 world/gate/state        LOCKED | UNLOCKED | OPEN | ALARM | EMERGENCY
@@ -45,7 +45,7 @@ world/estop             true | false     <- ONE emergency stop for the whole wor
 world/cmd/<zone>        commands from the dashboard
 ```
 
-Until Zone 3, zones run alone or talk over USB serial.
+Until Zone 3, zones run alone. After that, the Uno reaches MQTT through `6_control_center/hub/serial_bridge.py`.
 
 ## Safety rules (every zone)
 
@@ -72,16 +72,34 @@ mini_smart_world/
 └── 6_control_center/
 ```
 
-Each zone folder has its own README with parts, versions (v1, v2, …), a checkpoint and notes. Inside a zone:
+Every zone follows the same pattern as the Smart Gate:
 
 ```text
 <zone>/
-├── README.md
-├── firmware/      ← ESP32 Arduino sketches (one folder per version: v1_..., v2_...)
-├── pi/            ← Python code for the Raspberry Pi (if any)
-├── wiring/        ← diagrams, Tinkercad links, photos
-└── notes/         ← lab notebook: what you built, what broke, what you learned
+├── README.md          ← what it does, versions (v1, v2, …) with checkboxes, checkpoint
+├── docs/
+│   ├── plan.md        ← evening-by-evening plan
+│   ├── wiring.md      ← parts list + pin map + sensor cheat-sheet
+│   ├── circuit_design.md ← build and test it in Wokwi / Tinkercad first
+│   └── figures/       ← wiring diagram
+├── code/01_.../       ← one Arduino sketch per version (folder name = sketch name)
+├── pi/                ← Python for the Raspberry Pi (Watchtower)
+├── hardware/          ← cardboard model: 1:1 cutting template (SVG) + build guide
+└── experiments/       ← test_log.csv: fill in a row for every test
 ```
+
+| Zone | Board | Code |
+|---|---|---|
+| 1 Smart Gate | Arduino Uno | RFID, LCD, servo |
+| 2 Lights & Security | same Uno (free pins) | LDR, PIR, PWM lamps, alarm, gate + lights together |
+| 3 Smart Farm | ESP32 | DHT22, soil calibration, MQTT, fan/pump with limits |
+| 4 Watchtower | ESP32 + Pi camera | pan/tilt presets, event photos, OpenCV ball tracking |
+| 5 The Road | ESP32 rover + Freenove dog | safe driving (timeout, obstacle, tilt), mock dog, read-only dog sensors |
+| 6 Control Center | Raspberry Pi | MQTT hub, world log, heartbeat, dashboard, mock world, ROS 2 starter |
+
+**Try it with no hardware:** [6_control_center](6_control_center/) has a mock world and the dashboard. Run them on your laptop.
+
+**Wi‑Fi passwords:** ESP32 sketches read them from `secrets.h` (copy `secrets_example.h`). `secrets.h` is in `.gitignore`, so it never reaches GitHub.
 
 Commit after every version: `git add . && git commit -m "gate v3: allowed card list" && git push`
 

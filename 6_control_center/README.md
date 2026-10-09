@@ -1,41 +1,56 @@
 # Zone 6 · Control Center 🖥️
 
-The world's brain: a Raspberry Pi hub that collects every zone's messages, saves one log, serves the dashboard and owns the **world E-stop**.
+The world's brain: a Raspberry Pi hub that collects every zone's messages, keeps one log, serves the dashboard and owns the **world E-stop**.
 
-```text
-6_control_center/
-├── hub/          ← MQTT broker setup + world_logger.py
-├── dashboard/    ← FastAPI backend + web page (world map, zone cards, log, E-stop)
-├── ros2/         ← ROS 2 nodes (v2)
-└── simulation/   ← Gazebo twin of the road (v2)
+## What it does
+Every zone sends its news to the hub over MQTT. The hub saves it all in one CSV log, sends a heartbeat every second, and serves a dashboard you open on your phone: live zone cards, farm and tower buttons, hold-to-drive pads for the rover and dog, and one big E-stop.
+
+**Start in mock mode:** `hub/fake_world.py` pretends to be every zone, so the dashboard works before any hardware exists.
+
+## Folder layout
+```
+requirements.txt            Python packages for the hub + dashboard
+hub/README.md               Pi setup + how to run everything
+hub/mosquitto.conf          MQTT broker settings
+hub/world_logger.py         one CSV log for the world + heartbeat
+hub/serial_bridge.py        gate Uno (USB) -> MQTT
+hub/fake_world.py           mock mode: every zone, simulated
+dashboard/app.py            FastAPI server + API
+dashboard/static/index.html the dashboard page
+ros2/                       v2: ROS 2 plan + mqtt_bridge_node.py
+simulation/                 v2: Gazebo digital twin plan
+docs/                       plan + architecture diagram
+hardware/                   cardboard Control Center building
+experiments/test_log.csv    safety tests (world_log.csv is created here when the logger runs)
+```
+
+## Quick start (any laptop, no hardware)
+```bash
+cd 6_control_center
+python3 -m venv .venv && source .venv/bin/activate
+pip install -r requirements.txt
+# Mosquitto must be running (see hub/README.md), then, each in its own terminal:
+python hub/world_logger.py
+python hub/fake_world.py
+python ../5_the_road/dog/code/dog_mock.py
+uvicorn dashboard.app:app --host 0.0.0.0 --port 8000     # open http://localhost:8000
 ```
 
 ## v1 · Hub + dashboard (weeks 6–8, with the Smart Farm)
-
-| | Build | Status |
-|---|---|---|
-| v1 | Pi set up: SSH, Python venv, Mosquitto MQTT broker | ☐ |
-| v2 | `hub/world_logger.py`: subscribe to `world/#`, save to `world_log.csv` | ☐ |
-| v3 | Gate + Lights + Farm all publish to the hub | ☐ |
-| v4 | Dashboard: live zone cards, log table, sensor chart | ☐ |
-| v5 | **World E-stop button** → publishes `world/estop` | ☐ |
+| | Build | Code | Status |
+|---|---|---|---|
+| v1 | Pi set up: SSH, venv, Mosquitto | `hub/README.md` | ☐ |
+| v2 | One log for the world + heartbeat | `hub/world_logger.py` | ☐ |
+| v3 | Dashboard in mock mode | `hub/fake_world.py`, `dashboard/` | ☐ |
+| v4 | Real zones: gate via serial bridge, farm via Wi‑Fi | `hub/serial_bridge.py` | ☐ |
+| v5 | **World E-stop** tested on every zone | dashboard | ☐ |
 
 ## v2 · ROS 2 + Gazebo (weeks 15–17)
+See [ros2/README.md](ros2/README.md) and [simulation/README.md](simulation/README.md).
 
-| | Build | Status |
-|---|---|---|
-| v1 | ROS 2 tutorials: talker/listener, `ros2 topic echo`, `rqt_graph` | ☐ |
-| v2 | `mqtt_bridge_node`: `world/*` ↔ ROS topics | ☐ |
-| v3 | `world_safety_node`: owns `/estop`, offers `/reset_estop` | ☐ |
-| v4 | Rover in Gazebo on a copy of the road | ☐ |
-| v5 | Dashboard via rosbridge | ☐ |
-| v6 | `ros2 bag record` a full day in the world and replay it | ☐ |
+## Checkpoint
+- [ ] Dashboard works from your phone on the same Wi‑Fi
+- [ ] E-stop stops every zone, and commands are refused while it's on
+- [ ] Stopping `world_logger.py` makes the farm stop watering
 
-```text
-[ESP32 zones] --MQTT--> [mqtt_bridge_node] --> /gate/state /farm/sensors /rover/state ...
-[dashboard] --rosbridge--> /cmd/* --> [world_safety_node] --> /safe_cmd/* --> zones
-                                          |
-                               [world_logger_node]  [glasses_status_node (future)]
-```
-
-Pi 2 note: fine for v1 (add a USB Wi‑Fi dongle or Ethernet). For ROS 2 and vision, a Pi 4/5 or a laptop with Ubuntu is much easier.
+Pi 2 note: fine for v1 (Ethernet or a USB Wi‑Fi dongle). For ROS 2 and vision, a Pi 4/5 or a laptop with Ubuntu is much easier.

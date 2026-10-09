@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="440mm" height="540mm" viewBox="-20 -45 440 540" font-family="Helvetica, Arial, sans-serif">
+<rect x="-20" y="-45" width="440" height="540" fill="#fff"/>
+<text x="200.0" y="-28" text-anchor="middle" font-size="10" font-weight="bold" fill="#222">Zone 6 · Control Center building (1:1, mm)</text>
+<text x="200.0" y="-18" text-anchor="middle" font-size="5" fill="#555">1:1 scale in mm. Print at 100% or measure with a ruler. Red = CUT · blue dashed = SCORE/FOLD · grey = mark only.</text>
+<rect x="100" y="100" width="200" height="140" fill="#e8d3a8" stroke="#c0392b" stroke-width="0.8"/>
+<text x="200.0" y="170.0" text-anchor="middle" font-size="7" font-weight="bold" fill="#7b5b2a">CONTROL CENTER</text>
+<text x="200.0" y="178.0" text-anchor="middle" font-size="5" fill="#7b5b2a">base 200 x 140</text>
+<rect x="100" y="0" width="200" height="100" fill="#f5e6c8" stroke="#c0392b" stroke-width="0.8"/>
+<text x="200.0" y="50.0" text-anchor="middle" font-size="7" font-weight="bold" fill="#7b5b2a">front</text>
+<text x="200.0" y="58.0" text-anchor="middle" font-size="5" fill="#7b5b2a">200 x 100</text>
+<rect x="100" y="240" width="200" height="100" fill="#f5e6c8" stroke="#c0392b" stroke-width="0.8"/>
+<text x="200.0" y="290.0" text-anchor="middle" font-size="7" font-weight="bold" fill="#7b5b2a">back</text>
+<text x="200.0" y="298.0" text-anchor="middle" font-size="5" fill="#7b5b2a">200 x 100</text>
+<rect x="0" y="100" width="100" height="140" fill="#f5e6c8" stroke="#c0392b" stroke-width="0.8"/>
+<text x="50.0" y="170.0" text-anchor="middle" font-size="7" font-weight="bold" fill="#7b5b2a">left</text>
+<text x="50.0" y="178.0" text-anchor="middle" font-size="5" fill="#7b5b2a">100 x 140</text>
+<rect x="300" y="100" width="100" height="140" fill="#f5e6c8" stroke="#c0392b" stroke-width="0.8"/>
+<text x="350.0" y="170.0" text-anchor="middle" font-size="7" font-weight="bold" fill="#7b5b2a">right</text>
+<text x="350.0" y="178.0" text-anchor="middle" font-size="5" fill="#7b5b2a">100 x 140</text>
+<rect x="100" y="340" width="200" height="140" fill="#f5e6c8" stroke="#c0392b" stroke-width="0.8"/>
+<text x="200.0" y="410.0" text-anchor="middle" font-size="7" font-weight="bold" fill="#7b5b2a">lid / roof</text>
+<text x="200.0" y="418.0" text-anchor="middle" font-size="5" fill="#7b5b2a">200 x 140</text>
+<line x1="100" y1="340" x2="300" y2="340" stroke="#2471a3" stroke-width="0.8" stroke-dasharray="4 2"/>
+<line x1="100" y1="100" x2="300" y2="100" stroke="#2471a3" stroke-width="0.8" stroke-dasharray="4 2"/>
+<line x1="100" y1="240" x2="300" y2="240" stroke="#2471a3" stroke-width="0.8" stroke-dasharray="4 2"/>
+<line x1="100" y1="100" x2="100" y2="240" stroke="#2471a3" stroke-width="0.8" stroke-dasharray="4 2"/>
+<line x1="300" y1="100" x2="300" y2="240" stroke="#2471a3" stroke-width="0.8" stroke-dasharray="4 2"/>
+<rect x="120" y="15" width="110" height="70" fill="#fff" stroke="#c0392b" stroke-width="0.8"/>
+<text x="175.0" y="91" text-anchor="middle" font-size="4.5" fill="#555">screen window (phone / tablet)</text>
+<circle cx="265" cy="50" r="11.0" fill="#fff" stroke="#c0392b" stroke-width="0.8"/>
+<text x="265" y="67.0" text-anchor="middle" font-size="4.5" fill="#555">world E-stop Ø22</text>
+<rect x="20" y="140" width="60" height="20" fill="#fff" stroke="#c0392b" stroke-width="0.8"/>
+<text x="50.0" y="166" text-anchor="middle" font-size="4.5" fill="#555">Pi vents</text>
+<rect x="320" y="160" width="60" height="20" fill="#fff" stroke="#c0392b" stroke-width="0.8"/>
+<text x="350.0" y="186" text-anchor="middle" font-size="4.5" fill="#555">USB / power</text>
+<text x="0" y="470" text-anchor="start" font-size="4.5" fill="#333">The Raspberry Pi sits inside on the base. Big red E-stop button goes through the front panel.</text>
+<text x="0" y="478" text-anchor="start" font-size="4.5" fill="#333">Leave the back panel removable (tape only) so you can reach the Pi.</text>
+</svg>
